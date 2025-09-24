@@ -46,6 +46,6 @@ jobs:
               echo "$org/$repo_name already exists"
             else
               echo "Forking $src to $org/$repo_name"
-              gh repo fork "$src" --org "$org" --name "$repo_name" --clone=false
+              gh repo fork "$src" --org "$org" --fork-name "$repo_name" --clone=false
             fi
           done
