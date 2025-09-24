@@ -43,7 +43,27 @@ jobs:
             repo_name=$(echo $tgt | cut -d'/' -f2)
             # Check if repo exists in org
             if gh repo view "$org/$repo_name" --json name -q .name 2>/dev/null; then
-              echo "$org/$repo_name already exists"
+              echo "$org/$repo_name already exists, synchronizing with upstream"
+
+              # Get the default branch of the upstream repo
+              upstream_default_branch=$(gh repo view "$src" --json defaultBranchRef -q .defaultBranchRef.name)
+              fork_default_branch=$(gh repo view "$org/$repo_name" --json defaultBranchRef -q .defaultBranchRef.name)
+
+              # Check if fork is behind upstream
+              echo "Checking sync status between $org/$repo_name and $src"
+              sync_status=$(gh api repos/$org/$repo_name/compare/$upstream_default_branch...$fork_default_branch --jq '.status' 2>/dev/null || echo "unknown")
+
+              if [ "$sync_status" = "behind" ] || [ "$sync_status" = "diverged" ]; then
+                echo "Fork is $sync_status upstream, syncing..."
+                # Sync the fork with upstream
+                gh api repos/$org/$repo_name/merge-upstream -X POST -f branch="$fork_default_branch" || echo "Sync failed - may require manual intervention"
+              elif [ "$sync_status" = "ahead" ]; then
+                echo "Fork is ahead of upstream, no sync needed"
+              elif [ "$sync_status" = "identical" ]; then
+                echo "Fork is up to date with upstream"
+              else
+                echo "Unable to determine sync status, skipping sync"
+              fi
             else
               echo "Forking $src to $org/$repo_name"
               gh repo fork $src --org $org --fork-name $repo_name --clone=false
