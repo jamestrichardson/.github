@@ -1,0 +1,4 @@
+repos:
+  - source: linuxserver/docker-swag
+    target: jamestrichardson/docker-swag
+    default-branch-only: false

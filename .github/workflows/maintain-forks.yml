@@ -1,0 +1,56 @@
+name: maintain-forks
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * *' # runs daily at 08:00
+
+permissions:
+  contents: write
+
+jobs:
+  maintain-forks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          app-id: ${{ vars.JBOT_APP_ID }}
+          private-key: ${{ secrets.JBOT_APP_KEY }}
+          owner: ${{ github.repository_owner }}
+
+      - name: Install dependencies
+        run: |
+          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+          sudo apt-add-repository https://cli.github.com/packages
+          sudo apt update
+          sudo apt install gh yq -y
+
+
+      - name: Authenticate GitHub CLI
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          gh auth login --with-token < <(echo "$GH_TOKEN")
+
+      - name: Fork repositories if missing
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          config="action-configs/repo-fork.yml"
+          org="${{ github.repository_owner }}"
+          count=$(yq '.repos | length' $config)
+          for i in $(seq 0 $((count - 1))); do
+            src=$(yq ".repos[$i].source" $config)
+            tgt=$(yq ".repos[$i].target" $config)
+            repo_name=$(echo $tgt | cut -d'/' -f2)
+            # Check if repo exists in org
+            if gh repo view "$org/$repo_name" --json name -q .name 2>/dev/null; then
+              echo "$org/$repo_name already exists"
+            else
+              echo "Forking $src to $org/$repo_name"
+              gh repo fork "$src" --org "$org" --name "$repo_name" --clone=false
+            fi
+          done
