@@ -23,7 +23,7 @@ repos:
   - source: joshjohanning/report-action-usage
     target: jamestrichardson/report-action-usage
     default-branch-only: false
-  - source: joshjohanning/joshjohanning/CodeCoverageSummary
+  - source: joshjohanning/CodeCoverageSummary
     target: jamestrichardson/joshjohanning/CodeCoverageSummary
     default-branch-only: false
   - source: joshjohanning/github-actions-for-packages
