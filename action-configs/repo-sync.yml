@@ -1,0 +1,6 @@
+repos:
+  - source: joshjohanning/bulk-github-repo-sync-action
+    target: jamestrichardson/action-bulk-github-repo-sync
+    visibility: public # visibility defaults to private if not specified
+    disable-github-actions: true # defaults to TRUE if not specified
+    archive-after-sync: true # defaults to FALSE if not specified

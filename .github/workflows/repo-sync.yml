@@ -1,0 +1,32 @@
+name: repo-sync
+
+on:
+  schedule:
+    - cron: '0 6 * * *' # runs daily at 06:00
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          app-id: ${{ vars.JBOT_APP_ID }}
+          private-key: ${{ secrets.JBOT_APP_KEY }}
+          owner: ${{ github.repository_owner }}
+
+      - name: repo-sync
+        id: repo-sync
+        uses: joshjohanning/bulk-github-repo-sync-action@v1
+        with:
+          repo-list-file: action-configs/repos.yml
+          source-github-token: ${{ steps.app-token.outputs.token }}
+          target-github-token: ${{ steps.app-token.outputs.token }}
+          overwrite-repo-visibility: true # overwrite repo visibility with what is in yml file; defaults to false
+          # force push to target repos (overwrites history); defaults to false
