@@ -24,11 +24,17 @@ repos:
     target: jamestrichardson/report-action-usage
     default-branch-only: false
   - source: joshjohanning/CodeCoverageSummary
-    target: jamestrichardson/joshjohanning/CodeCoverageSummary
+    target: jamestrichardson/CodeCoverageSummary
     default-branch-only: false
   - source: joshjohanning/github-actions-for-packages
     target: jamestrichardson/github-actions-for-packages
     default-branch-only: false
   - source: joshjohanning/twistlock-results-json-to-markdown-action
     target: jamestrichardson/twistlock-results-json-to-markdown-action
+    default-branch-only: false
+  - source: charlax/engineering-management
+    target: jamestrichardson/engineering-management
+    default-branch-only: false
+  - source: antonbabenko/terraform-best-practices
+    target: jamestrichardson/terraform-best-practices
     default-branch-only: false
