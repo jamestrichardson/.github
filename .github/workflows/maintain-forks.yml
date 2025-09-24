@@ -26,7 +26,6 @@ jobs:
           sudo apt update
           sudo apt install gh yq -y
 
-
       - name: Authenticate GitHub CLI
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
