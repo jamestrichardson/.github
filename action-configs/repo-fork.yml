@@ -2,3 +2,33 @@ repos:
   - source: linuxserver/docker-swag
     target: jamestrichardson/docker-swag
     default-branch-only: false
+  - source: joshjohanning/organization-readme-badge-generator
+    target: jamestrichardson/organization-readme-badge-generator
+    default-branch-only: false
+  - source: joshjohanning/bulk-github-repo-sync-action
+    target: jamestrichardson/bulk-github-repo-sync-action
+    default-branch-only: false
+  - source: joshjohanning/publish-github-action
+    target: jamestrichardson/publish-github-action
+    default-branch-only: false
+  - source: joshjohanning/github-actions-allow-list-as-code-action
+    target: jamestrichardson/github-actions-allow-list-as-code-action
+    default-branch-only: false
+  - source: joshjohanning/github-actions-log-warning-checker
+    target: jamestrichardson/github-actions-log-warning-checker
+    default-branch-only: false
+  - source: joshjohanning/generate-org-repos-sbom-action
+    target: jamestrichardson/generate-org-repos-sbom-action
+    default-branch-only: false
+  - source: joshjohanning/report-action-usage
+    target: jamestrichardson/report-action-usage
+    default-branch-only: false
+  - source: joshjohanning/joshjohanning/CodeCoverageSummary
+    target: jamestrichardson/joshjohanning/CodeCoverageSummary
+    default-branch-only: false
+  - source: joshjohanning/github-actions-for-packages
+    target: jamestrichardson/github-actions-for-packages
+    default-branch-only: false
+  - source: joshjohanning/twistlock-results-json-to-markdown-action
+    target: jamestrichardson/twistlock-results-json-to-markdown-action
+    default-branch-only: false
