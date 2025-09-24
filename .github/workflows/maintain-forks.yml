@@ -38,8 +38,8 @@ jobs:
           org="${{ github.repository_owner }}"
           count=$(yq '.repos | length' $config)
           for i in $(seq 0 $((count - 1))); do
-            src=$(yq ".repos[$i].source" $config)
-            tgt=$(yq ".repos[$i].target" $config)
+            src=$(yq ".repos[$i].source" $config  | tr -d '"')
+            tgt=$(yq ".repos[$i].target" $config  | tr -d '"')
             repo_name=$(echo $tgt | cut -d'/' -f2)
             # Check if repo exists in org
             if gh repo view "$org/$repo_name" --json name -q .name 2>/dev/null; then
