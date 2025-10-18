@@ -1,5 +1,5 @@
 <!-- start organization badges -->
-![Total repositories](https://img.shields.io/static/v1?label=Total%20repositories&message=27&color=blue) ![Open PRs in last 30 days](https://img.shields.io/static/v1?label=Open%20PRs%20in%20last%2030%20days&message=27&color=blue) ![Merged PRs in last 30 days](https://img.shields.io/static/v1?label=Merged%20PRs%20in%20last%2030%20days&message=4&color=blue)
+![Total repositories](https://img.shields.io/badge/Total%20repositories-27-blue?labelColor=555) ![PRs created in last 30 days](https://img.shields.io/badge/PRs%20created%20in%20last%2030%20days-27-blue?labelColor=555) ![Merged PRs in last 30 days](https://img.shields.io/badge/Merged%20PRs%20in%20last%2030%20days-4-blue?labelColor=555)
 <!-- end organization badges -->
 
 ✨ This is an organization from [@james-t-richardson-ii](https://github.com/james-t-richardson-ii)
